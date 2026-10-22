@@ -1,0 +1,110 @@
+export type Language = 'es' | 'en';
+
+export const translations = {
+  es: {
+    // Navbar
+    tracking: "Seguimiento",
+    induction: "Inducción",
+    regulation: "Reglamento",
+    curriculum: "Plan Curricular",
+    sorter: "Clasificador",
+    ethics: "Casos Éticos",
+    exam: "Evaluación",
+    certificate: "Certificado",
+    profile: "Perfil",
+    logout: "Cambiar de Rol",
+    
+    // Landing Page
+    systemBadge: "Sistema Integral de Inducción Formativa SENA",
+    landingTitle: "Portal de Acceso y Selección de Perfil",
+    landingSubtitle: "Bienvenido a la plataforma de inducción del SENA. Selecciona el perfil con el que ingresarás: los Aprendices acceden directamente diligenciando sus datos sin clave, y los Instructores acceden mediante su clave institucional de autorización.",
+    apprenticeTab: "Aprendiz (Sin Clave)",
+    instructorTab: "Instructor (Autorizado)",
+    watchVideo: "Ver Video Tutorial de Inducción (Google Drive)",
+    
+    // Apprentice Card
+    apprenticeProfile: "Perfil: Aprendiz SENA",
+    apprenticeDesc: "Ingreso libre sin contraseña para realizar la inducción",
+    noKeyBadge: "Sin Clave",
+    fillDataNotice: "Completa tus datos para tu Certificado Oficial",
+    fullNameLabel: "Nombre Completo del Aprendiz *",
+    docTypeLabel: "Tipo de Documento",
+    docNumberLabel: "Número de Documento *",
+    fichaLabel: "Número de Ficha *",
+    programLabel: "Programa de Formación *",
+    regionalLabel: "Regional SENA",
+    centerLabel: "Centro de Formación",
+    enterApprenticeBtn: "Ingresar a la Inducción como Aprendiz",
+    directAccess: "Acceso directo · Sin clave de seguridad requerida",
+    switchInstructorPrompt: "¿Eres el Instructor? Cambiar a Perfil Instructor",
+
+    // Instructor Card
+    instructorProfile: "Perfil: Instructor SENA",
+    instructorDesc: "Consola de administración y seguimiento",
+    requiresKeyBadge: "Requiere Clave",
+    instructorPrivileges: "Privilegios exclusivos del instructor:",
+    priv1: "Sincronización automática de notas y certificados en Google Drive",
+    priv2: "Consola de seguimiento por fichas y tabla de aprendices",
+    priv3: "Generación y copiado del enlace directo para compartir a los aprendices",
+    instructorKeyLabel: "Clave de Acceso del Instructor",
+    restrictedAccessBadge: "Acceso Restringido",
+    enterPasswordPlaceholder: "Ingresa tu clave de acceso",
+    quickAccessQuery: "¿Requiere acceso rápido?",
+    autoFillKey: "Autocompletar clave autorizada",
+    enterInstructorConsoleBtn: "Ingresar a Consola de Instructor",
+    instructorNote: "La consola del instructor le permite supervisar y sincronizar sin que los aprendices tengan acceso a la configuración.",
+  },
+  en: {
+    // Navbar
+    tracking: "Tracking",
+    induction: "Induction",
+    regulation: "Regulation",
+    curriculum: "Curriculum",
+    sorter: "Sorter Game",
+    ethics: "Ethics Cases",
+    exam: "Official Exam",
+    certificate: "Certificate",
+    profile: "Profile",
+    logout: "Switch Role",
+    
+    // Landing Page
+    systemBadge: "SENA Integral Induction & Training System",
+    landingTitle: "Access Portal & Profile Selection",
+    landingSubtitle: "Welcome to the SENA induction platform. Select your profile: Apprentices log in directly with their details without a password, and Instructors access via their institutional authorization key.",
+    apprenticeTab: "Apprentice (No Password)",
+    instructorTab: "Instructor (Authorized)",
+    watchVideo: "Watch Induction Video Tutorial (Google Drive)",
+    
+    // Apprentice Card
+    apprenticeProfile: "Profile: SENA Apprentice",
+    apprenticeDesc: "Free access without password to complete induction",
+    noKeyBadge: "No Password",
+    fillDataNotice: "Complete your details for your Official Certificate",
+    fullNameLabel: "Apprentice Full Name *",
+    docTypeLabel: "Document Type",
+    docNumberLabel: "Document Number *",
+    fichaLabel: "Ficha Number *",
+    programLabel: "Training Program *",
+    regionalLabel: "SENA Regional",
+    centerLabel: "Training Center",
+    enterApprenticeBtn: "Enter Induction as Apprentice",
+    directAccess: "Direct access · No security password required",
+    switchInstructorPrompt: "Are you the Instructor? Switch to Instructor Profile",
+
+    // Instructor Card
+    instructorProfile: "Profile: SENA Instructor",
+    instructorDesc: "Administration and tracking console",
+    requiresKeyBadge: "Password Required",
+    instructorPrivileges: "Exclusive instructor privileges:",
+    priv1: "Automatic synchronization of grades and certificates in Google Drive",
+    priv2: "Cohort tracking console and apprentice data table",
+    priv3: "Generation and copying of direct link to share with apprentices",
+    instructorKeyLabel: "Instructor Access Key",
+    restrictedAccessBadge: "Restricted Access",
+    enterPasswordPlaceholder: "Enter your access key",
+    quickAccessQuery: "Need quick access?",
+    autoFillKey: "Autofill authorized key",
+    enterInstructorConsoleBtn: "Enter Instructor Console",
+    instructorNote: "The instructor console allows you to monitor and sync without apprentices having access to settings.",
+  }
+};

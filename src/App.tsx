@@ -93,6 +93,21 @@ export default function App() {
     return DEFAULT_APPRENTICE;
   });
 
+  const [language, setLanguage] = useState<'es' | 'en'>(() => {
+    if (typeof window !== 'undefined') {
+      return (localStorage.getItem('sena_lang') as 'es' | 'en') || 'es';
+    }
+    return 'es';
+  });
+
+  const handleToggleLanguage = () => {
+    const nextLang = language === 'es' ? 'en' : 'es';
+    setLanguage(nextLang);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('sena_lang', nextLang);
+    }
+  };
+
   const handleSelectInstructor = () => {
     setUserRole('instructor');
     setActiveTab('instructor_dashboard');
@@ -243,6 +258,8 @@ export default function App() {
         isDarkMode={isDarkMode}
         onToggleDarkMode={handleToggleDarkMode}
         initialRole={userRole}
+        language={language}
+        onToggleLanguage={handleToggleLanguage}
       />
     );
   }
@@ -275,6 +292,8 @@ export default function App() {
           onOpenInstructorLogin={() => setIsInstructorAccessOpen(true)}
           onSwitchToInstructor={() => handleSetRole('instructor')}
           onOpenLanding={handleOpenLanding}
+          language={language}
+          onToggleLanguage={handleToggleLanguage}
         />
       </div>
 

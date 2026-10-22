@@ -32,6 +32,8 @@ interface NavbarProps {
   onOpenInstructorLogin?: () => void;
   onSwitchToInstructor?: () => void;
   onOpenLanding?: () => void;
+  language: 'es' | 'en';
+  onToggleLanguage: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -50,6 +52,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenInstructorLogin,
   onSwitchToInstructor,
   onOpenLanding,
+  language,
+  onToggleLanguage,
 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -239,6 +243,17 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span className="xs:hidden">Rol</span>
             </button>
           )}
+
+          {/* Language Toggle Button (ES / EN) */}
+          <button
+            onClick={onToggleLanguage}
+            aria-label="Cambiar idioma español / inglés"
+            title={language === 'es' ? 'Switch to English' : 'Cambiar a Español'}
+            className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-bold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-orange-100 dark:hover:bg-orange-950/50 rounded-xl transition-all shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#39A900] shrink-0 border border-slate-200 dark:border-slate-700 cursor-pointer"
+          >
+            <span className="text-sm">{language === 'es' ? '🇪🇸' : '🇬🇧'}</span>
+            <span className="font-extrabold text-[11px]">{language === 'es' ? 'ES' : 'EN'}</span>
+          </button>
 
           {/* Dark Mode Toggle Button */}
           <button

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ApprenticeData, UserRole } from '../types/induction';
 import { SenaLogo } from './SenaLogo';
 import { ChildAvatar } from './ChildAvatar';
+import { translations } from '../utils/translations';
 import { 
   ShieldCheck, 
   User, 
@@ -36,6 +37,8 @@ interface RoleSelectionLandingProps {
   isDarkMode: boolean;
   onToggleDarkMode: () => void;
   initialRole?: UserRole | null;
+  language: 'es' | 'en';
+  onToggleLanguage: () => void;
 }
 
 export const RoleSelectionLanding: React.FC<RoleSelectionLandingProps> = ({
@@ -45,7 +48,10 @@ export const RoleSelectionLanding: React.FC<RoleSelectionLandingProps> = ({
   isDarkMode,
   onToggleDarkMode,
   initialRole,
+  language,
+  onToggleLanguage,
 }) => {
+  const t = translations[language];
   // Active Tab for mobile or focused view ('aprendiz' | 'instructor')
   const [selectedTab, setSelectedTab] = useState<'aprendiz' | 'instructor'>(
     initialRole === 'instructor' ? 'instructor' : 'aprendiz'
@@ -114,7 +120,18 @@ export const RoleSelectionLanding: React.FC<RoleSelectionLandingProps> = ({
             </div>
           </div>
 
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex items-center gap-2.5 shrink-0">
+            {/* Language Toggle Button (ES / EN) */}
+            <button
+              onClick={onToggleLanguage}
+              aria-label="Cambiar idioma español / inglés"
+              title={language === 'es' ? 'Switch to English' : 'Cambiar a Español'}
+              className="inline-flex items-center gap-1 px-2.5 py-2 text-xs font-bold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-orange-100 dark:hover:bg-orange-950/50 rounded-xl transition-all shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#39A900] shrink-0 border border-slate-200 dark:border-slate-700 cursor-pointer"
+            >
+              <span className="text-sm">{language === 'es' ? '🇪🇸' : '🇬🇧'}</span>
+              <span className="font-extrabold text-[11px]">{language === 'es' ? 'ES' : 'EN'}</span>
+            </button>
+
             {/* Theme Toggle */}
             <button
               onClick={onToggleDarkMode}
@@ -140,17 +157,15 @@ export const RoleSelectionLanding: React.FC<RoleSelectionLandingProps> = ({
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-gradient-to-r from-emerald-100 to-orange-100 dark:from-emerald-950/80 dark:to-orange-950/80 text-orange-700 dark:text-orange-300 border-2 border-orange-400/40 shadow-sm max-w-full">
             <ChildAvatar variant="boy_cap" size="xs" />
             <Sparkles className="w-3.5 h-3.5 text-[#39A900] shrink-0" />
-            <span className="truncate">Sistema Integral de Inducción Formativa SENA</span>
+            <span className="truncate">{t.systemBadge}</span>
           </div>
 
           <h1 className="font-display text-2xl sm:text-4xl lg:text-5xl font-extrabold text-[#00324D] dark:text-white tracking-tight leading-tight">
-            Portal de Acceso y Selección de <span className="text-[#39A900]">Perfil</span>
+            {language === 'en' ? 'Access Portal & Profile Selection' : 'Portal de Acceso y Selección de'} <span className="text-[#39A900]">{language === 'en' ? '' : 'Perfil'}</span>
           </h1>
 
           <p className="text-xs sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
-            Bienvenido a la plataforma de inducción del SENA. Selecciona el perfil con el que ingresarás: 
-            los <strong className="text-emerald-700 dark:text-emerald-400">Aprendices</strong> acceden directamente diligenciando sus datos sin clave, 
-            y los <strong className="text-orange-600 dark:text-orange-400">Instructores</strong> acceden mediante su clave institucional de autorización.
+            {t.landingSubtitle}
           </p>
 
           {/* Universal Role Switcher for All Screen Sizes */}
