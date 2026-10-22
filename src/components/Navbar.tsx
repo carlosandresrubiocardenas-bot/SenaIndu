@@ -15,6 +15,7 @@ import {
   Sparkles
 } from 'lucide-react';
 import { UserRole } from '../types/induction';
+import { translations } from '../utils/translations';
 
 interface NavbarProps {
   activeTab: string;
@@ -56,6 +57,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onToggleLanguage,
 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const t = translations[language];
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
@@ -120,7 +122,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 <ChildAvatar variant="instructor_kid" size="xs" />
-                <span>Seguimiento</span>
+                <span>{t.tracking}</span>
               </button>
               <button
                 onClick={() => setActiveTab('inicio')}
@@ -131,7 +133,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 <ChildAvatar variant="boy_cap" size="xs" />
-                <span>Inducción</span>
+                <span>{t.induction}</span>
               </button>
               <button
                 onClick={() => setActiveTab('reglamento')}
@@ -142,7 +144,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 <ChildAvatar variant="reader" size="xs" />
-                <span>Reglamento</span>
+                <span>{t.regulation}</span>
               </button>
               <button
                 onClick={() => setActiveTab('plan')}
@@ -153,7 +155,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 <ChildAvatar variant="graduate" size="xs" />
-                <span>Plan Curricular</span>
+                <span>{t.curriculum}</span>
               </button>
             </>
           ) : (
@@ -167,7 +169,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 <ChildAvatar variant="boy_cap" size="xs" />
-                <span>Inicio</span>
+                <span>{t.induction}</span>
               </button>
               <button
                 onClick={() => setActiveTab('reglamento')}
@@ -178,7 +180,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 <ChildAvatar variant="reader" size="xs" />
-                <span>Reglamento</span>
+                <span>{t.regulation}</span>
               </button>
               <button
                 onClick={() => setActiveTab('clasificador')}
@@ -189,7 +191,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 <ChildAvatar variant="gamer" size="xs" />
-                <span>Clasificador</span>
+                <span>{t.sorter}</span>
               </button>
               <button
                 onClick={() => setActiveTab('casos')}
@@ -200,7 +202,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 <ChildAvatar variant="detective" size="xs" />
-                <span>Casos</span>
+                <span>{t.ethics}</span>
               </button>
               <button
                 onClick={() => setActiveTab('evaluacion')}
@@ -211,7 +213,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 <ChildAvatar variant="graduate" size="xs" />
-                <span>Evaluación</span>
+                <span>{t.exam}</span>
               </button>
               <button
                 onClick={() => setActiveTab('plan')}
@@ -222,7 +224,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 <ChildAvatar variant="girl_curls" size="xs" />
-                <span>Plan 40H</span>
+                <span>{t.curriculum}</span>
               </button>
             </>
           )}
@@ -239,8 +241,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <ChildAvatar variant={userRole === 'instructor' ? 'boy_cap' : 'instructor_kid'} size="xs" />
               <ArrowLeftRight className="w-3.5 h-3.5 text-[#FF6B00]" />
-              <span className="hidden xs:inline">Cambiar Rol</span>
-              <span className="xs:hidden">Rol</span>
+              <span className="hidden xs:inline">{t.switchRole}</span>
+              <span className="xs:hidden">{t.switchRole}</span>
             </button>
           )}
 
@@ -369,7 +371,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 <ChildAvatar variant="instructor_kid" size="sm" />
-                <span>Seguimiento y Consola de Instructor</span>
+                <span>{t.tracking}</span>
               </button>
               <button
                 onClick={() => handleTabClick('inicio')}
@@ -380,7 +382,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 <ChildAvatar variant="boy_cap" size="sm" />
-                <span>Vista de Inducción</span>
+                <span>{t.induction}</span>
               </button>
               <button
                 onClick={() => handleTabClick('reglamento')}
@@ -391,7 +393,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 <ChildAvatar variant="reader" size="sm" />
-                <span>Reglamento (Acuerdo 0009 de 2024)</span>
+                <span>{t.regulation}</span>
               </button>
               <button
                 onClick={() => handleTabClick('plan')}
@@ -402,7 +404,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 <ChildAvatar variant="graduate" size="sm" />
-                <span>Plan Curricular de Inducción</span>
+                <span>{t.curriculum}</span>
               </button>
             </>
           ) : (
@@ -416,7 +418,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 <ChildAvatar variant="boy_cap" size="sm" />
-                <span>Inicio & Pilares Institucionales</span>
+                <span>{t.induction}</span>
               </button>
               <button
                 onClick={() => handleTabClick('reglamento')}
@@ -427,7 +429,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 <ChildAvatar variant="reader" size="sm" />
-                <span>Explorador de Reglamento</span>
+                <span>{t.regulation}</span>
               </button>
               <button
                 onClick={() => handleTabClick('clasificador')}
@@ -438,7 +440,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 <ChildAvatar variant="gamer" size="sm" />
-                <span>Clasificador Exprés de Faltas</span>
+                <span>{t.sorter}</span>
               </button>
               <button
                 onClick={() => handleTabClick('casos')}
@@ -449,7 +451,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 <ChildAvatar variant="detective" size="sm" />
-                <span>Casos Reales y Dilemas Éticos</span>
+                <span>{t.ethics}</span>
               </button>
               <button
                 onClick={() => handleTabClick('evaluacion')}
@@ -460,7 +462,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 <ChildAvatar variant="graduate" size="sm" />
-                <span>Evaluación Final de Inducción</span>
+                <span>{t.exam}</span>
               </button>
               <button
                 onClick={() => handleTabClick('plan')}
@@ -471,7 +473,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 <ChildAvatar variant="girl_curls" size="sm" />
-                <span>Plan Estructurado (40 Horas)</span>
+                <span>{t.curriculum}</span>
               </button>
               <div className="pt-2 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
                 <button
@@ -482,7 +484,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   className="px-3 py-2 text-xs font-medium text-slate-700 dark:text-slate-200 hover:bg-orange-50 dark:hover:bg-orange-950/50 rounded-lg inline-flex items-center gap-2"
                 >
                   <ChildAvatar variant="girl_pigtails" size="xs" />
-                  <span>Mis Datos de Aprendiz</span>
+                  <span>{t.profile}</span>
                 </button>
               </div>
             </>

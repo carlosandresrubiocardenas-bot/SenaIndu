@@ -15,6 +15,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { triggerConfetti } from '../utils/confetti';
+import { useLanguage } from '../context/LanguageContext';
 
 interface GamifiedSorterGameProps {
   onCompleteScore: (score: number) => void;
@@ -25,6 +26,7 @@ export const GamifiedSorterGame: React.FC<GamifiedSorterGameProps> = ({
   onCompleteScore,
   onContinueToDilemmas,
 }) => {
+  const { language, t } = useLanguage();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [streak, setStreak] = useState(0);
@@ -94,10 +96,10 @@ export const GamifiedSorterGame: React.FC<GamifiedSorterGameProps> = ({
           <ChildAvatar variant="gamer" size="md" />
           <div>
             <h2 className="font-display text-xl font-bold text-[#00324D] dark:text-white">
-              Clasificador Exprés del Reglamento
+              {t.sorterTitle}
             </h2>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-              Pon a prueba tu agilidad: clasifica cada situación en Derecho, Deber o Prohibición.
+              {t.sorterSubtitle}
             </p>
           </div>
         </div>
@@ -106,12 +108,12 @@ export const GamifiedSorterGame: React.FC<GamifiedSorterGameProps> = ({
         <div className="flex items-center gap-3 text-xs">
           <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-orange-50 dark:bg-orange-950/50 text-orange-700 dark:text-orange-400 font-bold border border-orange-300 dark:border-orange-800/60 shadow-xs">
             <Flame className="w-4 h-4 text-[#FF6B00] fill-[#FF6B00]" />
-            <span>Racha: <strong className="font-mono-data">{streak}x</strong></span>
+            <span>{t.streakLabel}: <strong className="font-mono-data">{streak}x</strong></span>
           </div>
 
           <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-300 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 font-bold shadow-xs">
             <ChildAvatar variant="star" size="xs" />
-            <span>Puntos: <strong className="font-mono-data text-[#39A900]">{score}</strong></span>
+            <span>{t.scoreLabel}: <strong className="font-mono-data text-[#39A900]">{score}</strong></span>
           </div>
         </div>
       </div>
@@ -123,9 +125,9 @@ export const GamifiedSorterGame: React.FC<GamifiedSorterGameProps> = ({
             <div className="flex justify-between text-xs font-semibold text-slate-500 dark:text-slate-400">
               <span className="flex items-center gap-1">
                 <ChildAvatar variant="boy_cap" size="xs" />
-                <span>Tarjeta {currentIndex + 1} de {totalCards}</span>
+                <span>{language === 'en' ? `Card ${currentIndex + 1} of ${totalCards}` : `Tarjeta ${currentIndex + 1} de ${totalCards}`}</span>
               </span>
-              <span className="text-orange-600 dark:text-orange-400 font-bold">{Math.round(((currentIndex) / totalCards) * 100)}% Completado</span>
+              <span className="text-orange-600 dark:text-orange-400 font-bold">{Math.round(((currentIndex) / totalCards) * 100)}% {language === 'en' ? 'Completed' : 'Completado'}</span>
             </div>
             <div className="w-full h-3 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden p-0.5">
               <div
@@ -140,7 +142,7 @@ export const GamifiedSorterGame: React.FC<GamifiedSorterGameProps> = ({
             {/* Regulatory watermark stamp */}
             <div className="flex items-center justify-center gap-1.5 text-[11px] font-bold text-orange-700 dark:text-orange-400 uppercase tracking-widest bg-orange-100/60 dark:bg-orange-950/40 py-1 px-3 rounded-full w-fit mx-auto border border-orange-200 dark:border-orange-800">
               <ChildAvatar variant="star" size="xs" />
-              <span>Caso o Situación Institucional #{currentIndex + 1}</span>
+              <span>{language === 'en' ? `Institutional Scenario #${currentIndex + 1}` : `Caso o Situación Institucional #${currentIndex + 1}`}</span>
             </div>
 
             <p className="font-display text-xl sm:text-2xl font-bold text-slate-900 dark:text-white max-w-xl mx-auto leading-relaxed">
@@ -164,11 +166,13 @@ export const GamifiedSorterGame: React.FC<GamifiedSorterGameProps> = ({
                   )}
                   <div className="space-y-1 text-xs sm:text-sm">
                     <p className="font-bold flex items-center gap-1.5">
-                      {lastAnswer.isCorrect ? '¡Correcto!' : '¡Atención! No es la categoría correcta.'}
+                      {lastAnswer.isCorrect
+                        ? (language === 'en' ? 'Correct!' : '¡Correcto!')
+                        : (language === 'en' ? 'Attention! Incorrect category.' : '¡Atención! No es la categoría correcta.')}
                     </p>
                     <p className="text-slate-700 dark:text-slate-300 leading-relaxed">{lastAnswer.explanation}</p>
                     <span className="font-mono-data text-[11px] text-orange-600 dark:text-orange-400 block pt-1 font-bold">
-                      Referencia: {lastAnswer.articleRef}
+                      {language === 'en' ? 'Reference' : 'Referencia'}: {lastAnswer.articleRef}
                     </span>
                   </div>
                 </div>
@@ -178,7 +182,7 @@ export const GamifiedSorterGame: React.FC<GamifiedSorterGameProps> = ({
                     onClick={handleNext}
                     className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#39A900] to-[#FF6B00] hover:from-[#329200] hover:to-[#ea580c] text-white text-xs font-bold shadow-md shadow-emerald-700/20 transition-all cursor-pointer"
                   >
-                    <span>{currentIndex + 1 < totalCards ? 'Siguiente Situación' : 'Ver Resultados'}</span>
+                    <span>{currentIndex + 1 < totalCards ? (language === 'en' ? 'Next Scenario' : 'Siguiente Situación') : (language === 'en' ? 'View Results' : 'Ver Resultados')}</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
@@ -193,8 +197,12 @@ export const GamifiedSorterGame: React.FC<GamifiedSorterGameProps> = ({
                   className="group p-4 rounded-2xl border-2 border-emerald-300 dark:border-emerald-800 hover:border-[#39A900] bg-emerald-50/60 dark:bg-emerald-950/30 hover:bg-emerald-100/70 text-[#00324D] dark:text-emerald-300 transition-all flex flex-col items-center gap-2 shadow-sm hover:shadow-md cursor-pointer transform hover:-translate-y-0.5"
                 >
                   <ChildAvatar variant="reader" size="md" />
-                  <span className="font-bold text-sm text-emerald-800 dark:text-emerald-300">Es un DERECHO</span>
-                  <span className="text-[11px] text-slate-500 dark:text-slate-400">Garantía institucional</span>
+                  <span className="font-bold text-sm text-emerald-800 dark:text-emerald-300">
+                    {language === 'en' ? 'It is a RIGHT' : 'Es un DERECHO'}
+                  </span>
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400">
+                    {language === 'en' ? 'Institutional guarantee' : 'Garantía institucional'}
+                  </span>
                 </button>
 
                 <button
@@ -202,8 +210,12 @@ export const GamifiedSorterGame: React.FC<GamifiedSorterGameProps> = ({
                   className="group p-4 rounded-2xl border-2 border-orange-300 dark:border-orange-800 hover:border-[#FF6B00] bg-orange-50/60 dark:bg-orange-950/30 hover:bg-orange-100/70 text-orange-900 dark:text-orange-300 transition-all flex flex-col items-center gap-2 shadow-sm hover:shadow-md cursor-pointer transform hover:-translate-y-0.5"
                 >
                   <ChildAvatar variant="boy_hoodie" size="md" />
-                  <span className="font-bold text-sm text-orange-800 dark:text-orange-300">Es un DEBER</span>
-                  <span className="text-[11px] text-slate-500 dark:text-slate-400">Obligación del aprendiz</span>
+                  <span className="font-bold text-sm text-orange-800 dark:text-orange-300">
+                    {language === 'en' ? 'It is a DUTY' : 'Es un DEBER'}
+                  </span>
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400">
+                    {language === 'en' ? 'Apprentice obligation' : 'Obligación del aprendiz'}
+                  </span>
                 </button>
 
                 <button
@@ -211,8 +223,12 @@ export const GamifiedSorterGame: React.FC<GamifiedSorterGameProps> = ({
                   className="group p-4 rounded-2xl border-2 border-rose-300 dark:border-rose-900/60 hover:border-rose-500 bg-rose-50/50 dark:bg-rose-950/30 hover:bg-rose-100/70 text-rose-900 dark:text-rose-300 transition-all flex flex-col items-center gap-2 shadow-sm hover:shadow-md cursor-pointer transform hover:-translate-y-0.5"
                 >
                   <ChildAvatar variant="detective" size="md" />
-                  <span className="font-bold text-sm text-rose-800 dark:text-rose-300">Es PROHIBICIÓN</span>
-                  <span className="text-[11px] text-slate-500 dark:text-slate-400">Conducta vetada</span>
+                  <span className="font-bold text-sm text-rose-800 dark:text-rose-300">
+                    {language === 'en' ? 'It is a PROHIBITION' : 'Es PROHIBICIÓN'}
+                  </span>
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400">
+                    {language === 'en' ? 'Prohibited conduct' : 'Conducta vetada'}
+                  </span>
                 </button>
               </div>
             )}
@@ -227,24 +243,32 @@ export const GamifiedSorterGame: React.FC<GamifiedSorterGameProps> = ({
 
           <div className="space-y-2">
             <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-[#00324D] dark:text-white">
-              ¡Reto del Clasificador Completado!
+              {language === 'en' ? 'Sorter Challenge Completed!' : '¡Reto del Clasificador Completado!'}
             </h3>
             <p className="text-sm text-slate-600 dark:text-slate-300 max-w-md mx-auto">
-              Has demostrado un dominio sólido distinguiendo entre lo que puedes exigir, lo que debes cumplir y lo que debes evitar en el SENA.
+              {language === 'en'
+                ? 'You have demonstrated a solid command distinguishing between what you can demand, what you must fulfill, and what you must avoid at SENA.'
+                : 'Has demostrado un dominio sólido distinguiendo entre lo que puedes exigir, lo que debes cumplir y lo que debes evitar en el SENA.'}
             </p>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 max-w-lg mx-auto py-2">
             <div className="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800">
-              <span className="text-[11px] font-bold text-emerald-800 dark:text-emerald-300 block">Puntaje Final</span>
+              <span className="text-[11px] font-bold text-emerald-800 dark:text-emerald-300 block">
+                {language === 'en' ? 'Final Score' : 'Puntaje Final'}
+              </span>
               <span className="font-mono-data text-2xl font-bold text-[#39A900]">{score}</span>
             </div>
             <div className="p-4 rounded-xl bg-orange-50 dark:bg-orange-950/40 border border-orange-200 dark:border-orange-800">
-              <span className="text-[11px] font-bold text-orange-800 dark:text-orange-300 block">Mejor Racha</span>
+              <span className="text-[11px] font-bold text-orange-800 dark:text-orange-300 block">
+                {language === 'en' ? 'Best Streak' : 'Mejor Racha'}
+              </span>
               <span className="font-mono-data text-2xl font-bold text-orange-600 dark:text-orange-400">{bestStreak}x</span>
             </div>
             <div className="col-span-2 sm:col-span-1 p-4 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-              <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 block">Efectividad</span>
+              <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 block">
+                {language === 'en' ? 'Effectiveness' : 'Efectividad'}
+              </span>
               <span className="font-mono-data text-2xl font-bold text-[#00324D] dark:text-sky-400">
                 {Math.min(100, Math.round((score / (totalCards * 14)) * 100))}%
               </span>
@@ -257,7 +281,7 @@ export const GamifiedSorterGame: React.FC<GamifiedSorterGameProps> = ({
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border-2 border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-bold transition-colors cursor-pointer"
             >
               <RotateCcw className="w-4 h-4 text-orange-500" />
-              <span>Volver a Jugar</span>
+              <span>{t.restartBtn}</span>
             </button>
 
             <button
@@ -265,7 +289,7 @@ export const GamifiedSorterGame: React.FC<GamifiedSorterGameProps> = ({
               className="inline-flex items-center gap-2.5 px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#39A900] to-[#FF6B00] hover:from-[#329200] hover:to-[#ea580c] text-white text-xs font-bold transition-all shadow-md shadow-emerald-700/20 cursor-pointer transform hover:-translate-y-0.5"
             >
               <ChildAvatar variant="detective" size="xs" />
-              <span>Continuar a Casos y Dilemas Reales</span>
+              <span>{language === 'en' ? 'Continue to Real Cases & Dilemmas' : 'Continuar a Casos y Dilemas Reales'}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>

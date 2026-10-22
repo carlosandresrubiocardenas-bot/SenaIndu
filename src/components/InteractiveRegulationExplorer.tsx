@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { REGULATION_ARTICLES } from '../data/senaRegulationData';
 import { RegulationCategory, RegulationArticle } from '../types/induction';
 import { ChildAvatar, ChildAvatarVariant } from './ChildAvatar';
+import { useLanguage } from '../context/LanguageContext';
 import { 
   Search, 
   ShieldCheck, 
@@ -23,17 +24,18 @@ interface InteractiveRegulationExplorerProps {
 export const InteractiveRegulationExplorer: React.FC<InteractiveRegulationExplorerProps> = ({
   onTakeQuiz,
 }) => {
+  const { language, t } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [activeArticle, setActiveArticle] = useState<RegulationArticle>(REGULATION_ARTICLES[1]); // Derecho a la formación by default
 
   const categories: { id: string; label: string; avatar: ChildAvatarVariant }[] = [
-    { id: 'all', label: 'Todos los Capítulos', avatar: 'star' },
-    { id: 'derechos', label: '24 Derechos (Cap. II)', avatar: 'reader' },
-    { id: 'deberes', label: 'Deberes (Cap. III)', avatar: 'boy_cap' },
-    { id: 'prohibiciones', label: 'Prohibiciones (Cap. III)', avatar: 'detective' },
-    { id: 'etapa_productiva', label: 'Permanencia y Etapa Prod. (Cap. IV)', avatar: 'gamer' },
-    { id: 'faltas_medidas', label: 'Faltas, Medidas y Sanciones (Cap. V)', avatar: 'graduate' },
+    { id: 'all', label: t.catAll, avatar: 'star' },
+    { id: 'derechos', label: t.catRights, avatar: 'reader' },
+    { id: 'deberes', label: t.catDuties, avatar: 'boy_cap' },
+    { id: 'prohibiciones', label: t.catProhibitions, avatar: 'detective' },
+    { id: 'etapa_productiva', label: t.catProductive, avatar: 'gamer' },
+    { id: 'faltas_medidas', label: t.catSanctions, avatar: 'graduate' },
   ];
 
   const filteredArticles = REGULATION_ARTICLES.filter((art) => {
@@ -54,15 +56,15 @@ export const InteractiveRegulationExplorer: React.FC<InteractiveRegulationExplor
         <div className="min-w-0 flex-1">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-emerald-100 to-orange-100 dark:from-emerald-950 dark:to-orange-950 text-emerald-800 dark:text-orange-300 text-[11px] font-bold mb-1.5 border border-orange-300 dark:border-orange-800 max-w-full truncate shadow-xs">
             <ChildAvatar variant="star" size="xs" />
-            <span>Normativa Vigente Oficial</span>
+            <span>{language === 'en' ? 'Official Regulations' : 'Normativa Vigente Oficial'}</span>
             <span>·</span>
             <span>Acuerdo 0009 de 2024</span>
           </div>
           <h2 className="font-display text-xl sm:text-2xl font-bold text-[#00324D] dark:text-white truncate">
-            Nuevo Reglamento del Aprendiz SENA
+            {t.explorerTitle}
           </h2>
           <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
-            Expedido por el Consejo Directivo Nacional · Deroga expresamente los Acuerdos 007/2012, 002/2014, 006/2023 y 002/2024
+            {t.explorerSubtitle}
           </p>
         </div>
 
@@ -71,7 +73,7 @@ export const InteractiveRegulationExplorer: React.FC<InteractiveRegulationExplor
           <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
           <input
             type="text"
-            placeholder="Buscar por artículo, falta o derecho..."
+            placeholder={t.searchPlaceholder}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-10 pr-4 py-2.5 text-xs bg-slate-50 dark:bg-slate-800 dark:text-white border-2 border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:border-[#39A900] focus:ring-2 focus:ring-[#FF6B00]/20 transition-all placeholder:text-slate-400 min-w-0"
@@ -81,7 +83,7 @@ export const InteractiveRegulationExplorer: React.FC<InteractiveRegulationExplor
               onClick={() => setSearchQuery('')}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-orange-600 dark:text-orange-400 font-semibold cursor-pointer"
             >
-              Limpiar
+              {language === 'en' ? 'Clear' : 'Limpiar'}
             </button>
           )}
         </div>
@@ -115,7 +117,7 @@ export const InteractiveRegulationExplorer: React.FC<InteractiveRegulationExplor
           <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider px-1 flex items-center justify-between">
             <span className="flex items-center gap-1.5">
               <ChildAvatar variant="reader" size="xs" />
-              <span>Artículos y Capítulos ({filteredArticles.length})</span>
+              <span>{language === 'en' ? 'Articles & Chapters' : 'Artículos y Capítulos'} ({filteredArticles.length})</span>
             </span>
           </div>
 
@@ -125,8 +127,12 @@ export const InteractiveRegulationExplorer: React.FC<InteractiveRegulationExplor
                 <div className="flex justify-center mb-2">
                   <ChildAvatar variant="detective" size="lg" />
                 </div>
-                <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">No se encontraron artículos</p>
-                <p className="text-xs text-slate-400 mt-1">Prueba con otro término de búsqueda o categoría.</p>
+                <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">
+                  {language === 'en' ? 'No articles found' : 'No se encontraron artículos'}
+                </p>
+                <p className="text-xs text-slate-400 mt-1">
+                  {language === 'en' ? 'Try another search keyword or category filter.' : 'Prueba con otro término de búsqueda o categoría.'}
+                </p>
               </div>
             ) : (
               filteredArticles.map((art) => {
@@ -212,7 +218,7 @@ export const InteractiveRegulationExplorer: React.FC<InteractiveRegulationExplor
           <div className="p-4 rounded-xl bg-orange-50/40 dark:bg-orange-950/20 border border-orange-200 dark:border-orange-900/40 space-y-2">
             <span className="text-[11px] font-bold text-orange-700 dark:text-orange-300 uppercase tracking-wider flex items-center gap-1.5">
               <ChildAvatar variant="star" size="xs" />
-              <span>Texto Reglamentario Oficial</span>
+              <span>{language === 'en' ? 'Official Regulatory Text' : 'Texto Reglamentario Oficial'}</span>
             </span>
             <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-200 leading-relaxed italic">
               "{activeArticle.fullText}"
@@ -223,7 +229,7 @@ export const InteractiveRegulationExplorer: React.FC<InteractiveRegulationExplor
           <div className="space-y-3">
             <h4 className="font-display text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <ChildAvatar variant="detective" size="xs" />
-              <span>Aspectos Clave que Debes Conocer</span>
+              <span>{t.keyPointsHeader}</span>
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               {activeArticle.keyPoints.map((point, idx) => (
@@ -242,7 +248,7 @@ export const InteractiveRegulationExplorer: React.FC<InteractiveRegulationExplor
           <div className="p-4 rounded-xl bg-gradient-to-r from-emerald-500/10 via-orange-500/10 to-transparent border border-orange-300/40 dark:border-orange-800/40 space-y-1.5">
             <span className="text-[11px] font-bold text-[#00324D] dark:text-orange-300 uppercase tracking-wider flex items-center gap-1.5">
               <ChildAvatar variant="boy_hoodie" size="xs" />
-              <span>Aplicación Práctica en tu Vida como Aprendiz</span>
+              <span>{t.practicalAppHeader}</span>
             </span>
             <p className="text-xs sm:text-sm text-slate-800 dark:text-slate-200 leading-relaxed">
               {activeArticle.practicalApplication}
@@ -252,14 +258,14 @@ export const InteractiveRegulationExplorer: React.FC<InteractiveRegulationExplor
           {/* Prompt to Gamified Practice */}
           <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
             <span className="text-xs text-slate-500 dark:text-slate-400">
-              ¿Listo para poner a prueba este conocimiento?
+              {language === 'en' ? 'Ready to test this knowledge?' : '¿Listo para poner a prueba este conocimiento?'}
             </span>
             <button
               onClick={onTakeQuiz}
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#39A900] to-[#FF6B00] hover:from-[#329200] hover:to-[#ea580c] text-white text-xs font-bold transition-all shadow-md shadow-emerald-700/20 cursor-pointer"
             >
               <ChildAvatar variant="gamer" size="xs" />
-              <span>Practicar en Clasificador</span>
+              <span>{t.takeQuizBtn}</span>
               <ExternalLink className="w-3.5 h-3.5 ml-1" />
             </button>
           </div>

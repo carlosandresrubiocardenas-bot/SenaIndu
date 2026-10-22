@@ -180,7 +180,7 @@ export const RoleSelectionLanding: React.FC<RoleSelectionLandingProps> = ({
               }`}
             >
               <ChildAvatar variant="boy_cap" size="xs" />
-              <span className="truncate">Aprendiz (Sin Clave)</span>
+              <span className="truncate">{t.apprenticeTab}</span>
             </button>
             <button
               type="button"
@@ -192,7 +192,7 @@ export const RoleSelectionLanding: React.FC<RoleSelectionLandingProps> = ({
               }`}
             >
               <ChildAvatar variant="instructor_kid" size="xs" />
-              <span className="truncate">Instructor (Autorizado)</span>
+              <span className="truncate">{t.instructorTab}</span>
             </button>
           </div>
 
@@ -205,7 +205,7 @@ export const RoleSelectionLanding: React.FC<RoleSelectionLandingProps> = ({
             >
               <ChildAvatar variant="gamer" size="xs" />
               <Play className="w-4 h-4 fill-current text-white" />
-              <span>Ver Video Tutorial de Inducción (Google Drive)</span>
+              <span>{t.watchVideo}</span>
             </button>
           </div>
         </div>
@@ -225,18 +225,18 @@ export const RoleSelectionLanding: React.FC<RoleSelectionLandingProps> = ({
                     <ChildAvatar variant="boy_cap" size="lg" glow={true} className="border-2 border-orange-400" />
                     <div className="min-w-0">
                       <h2 className="font-display text-lg sm:text-xl font-bold text-slate-900 dark:text-white truncate flex items-center gap-2">
-                        <span>Perfil: Aprendiz SENA</span>
+                        <span>{t.apprenticeProfile}</span>
                         <span className="w-2 h-2 rounded-full bg-[#39A900]" />
                       </h2>
                       <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
-                        Ingreso libre sin contraseña para realizar la inducción
+                        {t.apprenticeDesc}
                       </p>
                     </div>
                   </div>
 
                   <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-gradient-to-r from-emerald-100 to-orange-100 dark:from-emerald-950 dark:to-orange-950 text-emerald-800 dark:text-orange-300 border border-orange-300 dark:border-orange-700 shrink-0 shadow-xs">
                     <ChildAvatar variant="star" size="xs" />
-                    <span>Sin Clave</span>
+                    <span>{t.noKeyBadge}</span>
                   </span>
                 </div>
               </div>
@@ -247,11 +247,10 @@ export const RoleSelectionLanding: React.FC<RoleSelectionLandingProps> = ({
                   <div className="p-3.5 rounded-2xl bg-gradient-to-r from-emerald-50/90 to-orange-50/90 dark:from-emerald-950/40 dark:to-orange-950/40 border-2 border-orange-300/40 dark:border-orange-800/40 text-xs text-emerald-900 dark:text-emerald-200 space-y-1">
                     <p className="font-bold flex items-center gap-1.5 text-orange-700 dark:text-orange-300">
                       <ChildAvatar variant="girl_pigtails" size="xs" />
-                      <span>Completa tus datos para tu Certificado Oficial</span>
+                      <span>{t.fillDataNotice}</span>
                     </p>
                     <p className="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed pl-6">
-                      No necesitas clave de acceso. Tus respuestas, avance del reglamento y calificación del examen 
-                      se registrarán de forma automática con esta información.
+                      {t.noticeBody}
                     </p>
                   </div>
 
@@ -266,7 +265,7 @@ export const RoleSelectionLanding: React.FC<RoleSelectionLandingProps> = ({
                     <div className="space-y-1">
                       <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
                         <ChildAvatar variant="boy_hoodie" size="xs" />
-                        <span>Nombre Completo del Aprendiz *</span>
+                        <span>{t.fullNameLabel}</span>
                       </label>
                       <input
                         type="text"
@@ -283,7 +282,7 @@ export const RoleSelectionLanding: React.FC<RoleSelectionLandingProps> = ({
                       <div className="sm:col-span-5 space-y-1">
                         <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
                           <ChildAvatar variant="detective" size="xs" />
-                          <span>Tipo Documento *</span>
+                          <span>{t.docTypeLabel}</span>
                         </label>
                         <select
                           value={apprenticeForm.documentType}
@@ -305,7 +304,7 @@ export const RoleSelectionLanding: React.FC<RoleSelectionLandingProps> = ({
                       <div className="sm:col-span-7 space-y-1">
                         <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
                           <ChildAvatar variant="boy_glasses" size="xs" />
-                          <span>Número de Documento *</span>
+                          <span>{t.docNumberLabel}</span>
                         </label>
                         <input
                           type="text"
@@ -323,7 +322,7 @@ export const RoleSelectionLanding: React.FC<RoleSelectionLandingProps> = ({
                       <div className="sm:col-span-8 space-y-1">
                         <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
                           <ChildAvatar variant="reader" size="xs" />
-                          <span>Programa de Formación *</span>
+                          <span>{t.programLabel}</span>
                         </label>
                         <input
                           type="text"
@@ -338,7 +337,7 @@ export const RoleSelectionLanding: React.FC<RoleSelectionLandingProps> = ({
                       <div className="sm:col-span-4 space-y-1">
                         <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
                           <ChildAvatar variant="gamer" size="xs" />
-                          <span>Ficha *</span>
+                          <span>{t.fichaLabel}</span>
                         </label>
                         <input
                           type="text"
@@ -356,7 +355,7 @@ export const RoleSelectionLanding: React.FC<RoleSelectionLandingProps> = ({
                       <div className="sm:col-span-5 space-y-1">
                         <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
                           <ChildAvatar variant="boy_cap" size="xs" />
-                          <span>Regional</span>
+                          <span>{t.regionalLabel}</span>
                         </label>
                         <input
                           type="text"
@@ -370,7 +369,7 @@ export const RoleSelectionLanding: React.FC<RoleSelectionLandingProps> = ({
                       <div className="sm:col-span-7 space-y-1">
                         <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
                           <ChildAvatar variant="girl_braids" size="xs" />
-                          <span>Centro de Formación</span>
+                          <span>{t.centerLabel}</span>
                         </label>
                         <input
                           type="text"
@@ -392,11 +391,11 @@ export const RoleSelectionLanding: React.FC<RoleSelectionLandingProps> = ({
                     className="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-[#39A900] via-[#2d8500] to-[#FF6B00] hover:from-[#329200] hover:to-[#EA580C] text-white font-bold text-sm flex items-center justify-center gap-3 shadow-lg shadow-emerald-600/25 hover:shadow-orange-500/30 transition-all cursor-pointer transform hover:-translate-y-0.5"
                   >
                     <ChildAvatar variant="graduate" size="xs" />
-                    <span>Ingresar a la Inducción como Aprendiz</span>
+                    <span>{t.enterApprenticeBtn}</span>
                     <ArrowRight className="w-4 h-4 ml-1" />
                   </button>
                   <p className="text-center text-[11px] text-slate-400 mt-2">
-                    Acceso directo · Sin clave de seguridad requerida
+                    {t.directAccess}
                   </p>
                   <div className="pt-3 mt-3 border-t border-slate-100 dark:border-slate-800 text-center">
                     <button
@@ -405,7 +404,7 @@ export const RoleSelectionLanding: React.FC<RoleSelectionLandingProps> = ({
                       className="text-xs text-orange-600 dark:text-orange-400 font-semibold hover:underline inline-flex items-center gap-1.5"
                     >
                       <ChildAvatar variant="instructor_kid" size="xs" />
-                      <span>¿Eres el Instructor? Cambiar a Perfil Instructor &rarr;</span>
+                      <span>{t.switchInstructorPrompt} &rarr;</span>
                     </button>
                   </div>
                 </div>
@@ -425,17 +424,17 @@ export const RoleSelectionLanding: React.FC<RoleSelectionLandingProps> = ({
                     <ChildAvatar variant="instructor_kid" size="md" />
                     <div className="min-w-0">
                       <h2 className="font-display text-lg sm:text-xl font-bold truncate flex items-center gap-2">
-                        <span>Perfil: Instructor SENA</span>
+                        <span>{t.instructorProfile}</span>
                       </h2>
                       <p className="text-xs text-orange-200 truncate">
-                        Consola de administración y seguimiento
+                        {t.instructorDesc}
                       </p>
                     </div>
                   </div>
 
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-white/20 text-white border border-white/30 shrink-0 backdrop-blur-xs">
                     <ChildAvatar variant="star" size="xs" />
-                    <span>Requiere Clave</span>
+                    <span>{t.requiresKeyBadge}</span>
                   </span>
                 </div>
               </div>
@@ -446,20 +445,20 @@ export const RoleSelectionLanding: React.FC<RoleSelectionLandingProps> = ({
                   <div className="space-y-2.5">
                     <h3 className="text-xs font-bold uppercase tracking-wider text-orange-600 dark:text-orange-400 flex items-center gap-1.5">
                       <ChildAvatar variant="detective" size="xs" />
-                      <span>Privilegios exclusivos del instructor:</span>
+                      <span>{t.instructorPrivileges}</span>
                     </h3>
                     <ul className="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
                       <li className="flex items-start gap-2.5 p-2 rounded-xl bg-orange-50/50 dark:bg-orange-950/20 border border-orange-200/50 dark:border-orange-900/30">
                         <ChildAvatar variant="gamer" size="xs" />
-                        <span>Sincronización automática de notas y certificados en <strong className="text-orange-600 dark:text-orange-400">Google Drive</strong></span>
+                        <span>{t.priv1}</span>
                       </li>
                       <li className="flex items-start gap-2.5 p-2 rounded-xl bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-200/50 dark:border-emerald-900/30">
                         <ChildAvatar variant="reader" size="xs" />
-                        <span>Consola de seguimiento por fichas y tabla de aprendices</span>
+                        <span>{t.priv2}</span>
                       </li>
                       <li className="flex items-start gap-2.5 p-2 rounded-xl bg-orange-50/50 dark:bg-orange-950/20 border border-orange-200/50 dark:border-orange-900/30">
                         <ChildAvatar variant="graduate" size="xs" />
-                        <span>Generación y copiado del enlace directo para compartir a los aprendices</span>
+                        <span>{t.priv3}</span>
                       </li>
                     </ul>
                   </div>
@@ -470,10 +469,10 @@ export const RoleSelectionLanding: React.FC<RoleSelectionLandingProps> = ({
                       <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex flex-wrap items-center justify-between gap-1">
                         <span className="flex items-center gap-1.5">
                           <ChildAvatar variant="boy_glasses" size="xs" />
-                          <span>Clave de Acceso del Instructor</span>
+                          <span>{t.instructorKeyLabel}</span>
                         </span>
                         <span className="text-[11px] font-bold text-orange-600 dark:text-orange-400 bg-orange-100 dark:bg-orange-950/60 px-2 py-0.5 rounded-md border border-orange-200 dark:border-orange-800">
-                          Acceso Restringido
+                          {t.requiresKeyBadge}
                         </span>
                       </label>
 
@@ -485,7 +484,7 @@ export const RoleSelectionLanding: React.FC<RoleSelectionLandingProps> = ({
                             setInstructorPassword(e.target.value);
                             setPasswordError(null);
                           }}
-                          placeholder="Ingresa tu clave de acceso"
+                          placeholder={t.enterPasswordPlaceholder}
                           autoComplete="current-password"
                           className="w-full pl-3.5 pr-10 py-2.5 text-sm bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:border-[#FF6B00] focus:ring-2 focus:ring-[#39A900]/20 text-slate-900 dark:text-white min-w-0 transition-all"
                         />
@@ -507,13 +506,13 @@ export const RoleSelectionLanding: React.FC<RoleSelectionLandingProps> = ({
 
                     {/* Quick fill button */}
                     <div className="flex flex-wrap items-center justify-between gap-1 text-[11px] text-slate-400">
-                      <span>¿Requiere acceso rápido?</span>
+                      <span>{t.quickAccessQuery}</span>
                       <button
                         type="button"
                         onClick={handleFillInstructorPassword}
                         className="text-[#FF6B00] hover:text-[#EA580C] font-semibold hover:underline cursor-pointer"
                       >
-                        Autocompletar clave autorizada
+                        {t.autoFillKey}
                       </button>
                     </div>
 
@@ -522,14 +521,14 @@ export const RoleSelectionLanding: React.FC<RoleSelectionLandingProps> = ({
                       className="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-[#00324D] via-[#00476e] to-[#FF6B00] hover:from-[#002538] hover:to-[#ea580c] text-white font-bold text-sm flex items-center justify-center gap-2.5 shadow-lg shadow-sky-950/20 hover:shadow-orange-500/25 transition-all cursor-pointer mt-4 transform hover:-translate-y-0.5"
                     >
                       <ChildAvatar variant="instructor_kid" size="xs" />
-                      <span>Ingresar a Consola de Instructor</span>
+                      <span>{t.enterInstructorConsoleBtn}</span>
                     </button>
                   </form>
                 </div>
 
                 <div className="pt-4 border-t border-slate-100 dark:border-slate-800 text-[11px] text-slate-400 text-center space-y-2">
                   <p>
-                    La consola del instructor le permite supervisar y sincronizar sin que los aprendices tengan acceso a la configuración.
+                    {t.instructorNote}
                   </p>
                   <div>
                     <button
@@ -538,7 +537,7 @@ export const RoleSelectionLanding: React.FC<RoleSelectionLandingProps> = ({
                       className="text-xs text-[#39A900] font-semibold hover:underline inline-flex items-center gap-1.5 cursor-pointer"
                     >
                       <ChildAvatar variant="boy_hoodie" size="xs" />
-                      <span>¿Eres un Aprendiz? Cambiar a Perfil Aprendiz (Sin Clave) &rarr;</span>
+                      <span>{language === 'en' ? 'Are you an Apprentice? Switch to Apprentice Profile (No Password) →' : '¿Eres un Aprendiz? Cambiar a Perfil Aprendiz (Sin Clave) →'}</span>
                     </button>
                   </div>
                 </div>

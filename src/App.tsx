@@ -33,8 +33,10 @@ import {
   ArrowRight,
   ArrowLeftRight
 } from 'lucide-react';
+import { useLanguage } from './context/LanguageContext';
 
 export default function App() {
+  const { language, t, toggleLanguage } = useLanguage();
   // Role State: 'instructor' | 'aprendiz'
   const [userRole, setUserRole] = useState<UserRole>(() => {
     if (typeof window !== 'undefined') {
@@ -93,20 +95,7 @@ export default function App() {
     return DEFAULT_APPRENTICE;
   });
 
-  const [language, setLanguage] = useState<'es' | 'en'>(() => {
-    if (typeof window !== 'undefined') {
-      return (localStorage.getItem('sena_lang') as 'es' | 'en') || 'es';
-    }
-    return 'es';
-  });
-
-  const handleToggleLanguage = () => {
-    const nextLang = language === 'es' ? 'en' : 'es';
-    setLanguage(nextLang);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('sena_lang', nextLang);
-    }
-  };
+  const handleToggleLanguage = toggleLanguage;
 
   const handleSelectInstructor = () => {
     setUserRole('instructor');
@@ -310,31 +299,31 @@ export default function App() {
             <span className="font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5 truncate">
               {userRole === 'instructor' ? (
                 <>
-                  <span className="truncate text-orange-600 dark:text-orange-400 font-bold">Instructor SENA</span>
+                  <span className="truncate text-orange-600 dark:text-orange-400 font-bold">{t.instructorRoleLabel}</span>
                 </>
               ) : (
                 <>
-                  <span className="truncate text-emerald-700 dark:text-emerald-400 font-bold">Aprendiz: {apprentice.fullName}</span>
+                  <span className="truncate text-emerald-700 dark:text-emerald-400 font-bold">{t.apprenticeRoleLabel}: {apprentice.fullName}</span>
                 </>
               )}
             </span>
             <span className="text-orange-300 dark:text-orange-600 hidden sm:inline shrink-0">·</span>
             <span className="text-slate-500 dark:text-slate-400 hidden md:inline truncate">
               {userRole === 'instructor'
-                ? 'Consola con sincronización a Google Drive'
-                : `Ficha #${apprentice.fichaNumber} · ${apprentice.trainingProgram}`}
+                ? t.instructorSyncDesc
+                : `${language === 'en' ? 'Cohort' : 'Ficha'} #${apprentice.fichaNumber} · ${apprentice.trainingProgram}`}
             </span>
           </div>
 
           <button
             onClick={handleOpenLanding}
             className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-gradient-to-r from-[#39A900] to-[#FF6B00] hover:from-[#329200] hover:to-[#ea580c] text-white font-bold text-xs shadow-md shadow-orange-500/20 transition-all cursor-pointer shrink-0 whitespace-nowrap"
-            title="Volver a la pantalla inicial para cambiar de rol"
+            title={t.returnToChangeRole}
           >
             <ChildAvatar variant="star" size="xs" />
             <ArrowLeftRight className="w-3.5 h-3.5 text-white" />
-            <span className="hidden sm:inline">Regresar a </span>
-            <span>Cambiar Rol</span>
+            <span className="hidden sm:inline">{language === 'en' ? 'Back to ' : 'Regresar a '}</span>
+            <span>{t.switchRole}</span>
           </button>
         </div>
       </div>
@@ -382,12 +371,12 @@ export default function App() {
                 <div className="flex items-center gap-2">
                   <ChildAvatar variant="girl_curls" size="sm" glow={true} />
                   <span className="font-display text-base font-bold text-[#00324D] dark:text-white flex items-center gap-1.5">
-                    <span>Consultorio SofIA</span>
+                    <span>{t.sofiaHeader}</span>
                     <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-orange-100 dark:bg-orange-950 text-orange-600 dark:text-orange-400 border border-orange-300 dark:border-orange-800">
-                      En Vivo
+                      {t.sofiaLive}
                     </span>
                   </span>
-                  <span className="text-xs text-slate-400 dark:text-slate-500">· Respuestas Inmediatas</span>
+                  <span className="text-xs text-slate-400 dark:text-slate-500">· {t.sofiaDesc}</span>
                 </div>
                 <RegulationChatAssistant />
               </div>
@@ -397,13 +386,13 @@ export default function App() {
                 <div>
                   <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-gradient-to-r from-emerald-100 to-orange-100 dark:from-emerald-950 dark:to-orange-950 text-orange-700 dark:text-orange-300 border border-orange-300/50 mb-1">
                     <ChildAvatar variant="boy_hoodie" size="xs" />
-                    <span>Pilares Normativos Institucionales</span>
+                    <span>{t.pillarsBadge}</span>
                   </div>
                   <h3 className="font-display text-xl font-bold text-[#00324D] dark:text-white">
-                    Lo que todo <span className="text-[#39A900]">Aprendiz</span> <span className="text-[#FF6B00]">SENA</span> debe tener claro
+                    {t.pillarsTitle}
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
-                    Tres pilares esenciales del marco normativo institucional para garantizar tu permanencia exitosa
+                    {t.pillarsSubtitle}
                   </p>
                 </div>
 
@@ -414,18 +403,16 @@ export default function App() {
                       <ChildAvatar variant="star" size="md" glow={true} />
                       <div>
                         <h4 className="font-display text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                          <span>Tus Derechos son Inalienables (Capítulo II)</span>
+                          <span>{t.pillar1Title}</span>
                           <span className="px-2 py-0.5 text-[10px] font-bold rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300">
-                            24 Garantías
+                            {t.pillar1Badge}
                           </span>
                         </h4>
-                        <span className="text-[11px] text-slate-400 dark:text-slate-500">Educación gratuita, Bienestar y Trato Digno</span>
+                        <span className="text-[11px] text-slate-400 dark:text-slate-500">{t.pillar1Sub}</span>
                       </div>
                     </div>
                     <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed pl-12">
-                      El SENA te garantiza formación técnica y tecnológica integral sin ningún costo, acceso a talleres dotados,
-                      orientación actitudinal, beneficios de Bienestar (deportes, psicología, apoyos) y el derecho a solicitar
-                      revisión objetiva de tus evaluaciones en 3 días hábiles.
+                      {t.pillar1Desc}
                     </p>
                   </div>
 
@@ -435,18 +422,16 @@ export default function App() {
                       <ChildAvatar variant="reader" size="md" glow={true} />
                       <div>
                         <h4 className="font-display text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                          <span>Deberes y Cumplimiento de Evidencias (Capítulo III)</span>
+                          <span>{t.pillar2Title}</span>
                           <span className="px-2 py-0.5 text-[10px] font-bold rounded-full bg-orange-100 dark:bg-orange-950 text-orange-800 dark:text-orange-300">
-                            Compromiso
+                            {t.pillar2Badge}
                           </span>
                         </h4>
-                        <span className="text-[11px] text-slate-400 dark:text-slate-500">Asistencia, Porte de Carné y Cero Plagio</span>
+                        <span className="text-[11px] text-slate-400 dark:text-slate-500">{t.pillar2Sub}</span>
                       </div>
                     </div>
                     <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed pl-12">
-                      Debes portar siempre visible tu carné institucional, respetar las normas de Seguridad y Salud en el Trabajo (SST),
-                      asistir con puntualidad y justificar inasistencias en máximo 3 días hábiles. Recuerda que el plagio de código o
-                      proyectos es falta grave.
+                      {t.pillar2Desc}
                     </p>
                   </div>
 
@@ -456,18 +441,16 @@ export default function App() {
                       <ChildAvatar variant="detective" size="md" glow={true} />
                       <div>
                         <h4 className="font-display text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                          <span>Medidas Formativas vs. Sanciones y Comité (Capítulos VII y IX)</span>
+                          <span>{t.pillar3Title}</span>
                           <span className="px-2 py-0.5 text-[10px] font-bold rounded-full bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300">
-                            Debido Proceso
+                            {t.pillar3Badge}
                           </span>
                         </h4>
-                        <span className="text-[11px] text-slate-400 dark:text-slate-500">Planes de Mejoramiento y Garantía del Debido Proceso</span>
+                        <span className="text-[11px] text-slate-400 dark:text-slate-500">{t.pillar3Sub}</span>
                       </div>
                     </div>
                     <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed pl-12">
-                      Ante una dificultad académica, el instructor concertará un Plan de Mejoramiento (medida formativa pedagógica sin sanción).
-                      Si un caso pasa al Comité de Evaluación, tienes derecho a ser citado formalmente, radicar tus descargos en 3 días hábiles
-                      y asistir con tu Vocero de Ficha.
+                      {t.pillar3Desc}
                     </p>
                   </div>
                 </div>
@@ -477,10 +460,10 @@ export default function App() {
                     <ChildAvatar variant="gamer" size="lg" glow={true} />
                     <div>
                       <h5 className="font-display text-sm font-bold text-[#00324D] dark:text-white">
-                        ¿Quieres comprobar tus conocimientos ahora?
+                        {t.testKnowledgePrompt}
                       </h5>
                       <p className="text-xs text-slate-600 dark:text-slate-300">
-                        Juega el Clasificador Exprés o responde los casos reales para desbloquear tu certificado.
+                        {t.testKnowledgeDesc}
                       </p>
                     </div>
                   </div>
@@ -488,7 +471,7 @@ export default function App() {
                     onClick={() => setActiveTab('clasificador')}
                     className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#39A900] to-[#FF6B00] hover:from-[#329200] hover:to-[#ea580c] text-white text-xs font-bold whitespace-nowrap shadow-md shadow-orange-500/20 transition-all cursor-pointer"
                   >
-                    Ir al Clasificador
+                    {t.goToSorterBtn}
                   </button>
                 </div>
               </div>
